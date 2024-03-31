@@ -50,7 +50,7 @@ This was derived from GCode Systems Commands plugin.<br>
 
 ![](./images/GCodeSystem.png)
 
-So it calls "Varuable.sh"<br>
+So it calls "Variable.sh"<br>
 ```
 #!/bin/bash
 # this is to give OP something to call
