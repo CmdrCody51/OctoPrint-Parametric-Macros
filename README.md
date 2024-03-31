@@ -25,14 +25,76 @@ and get:<br>
 
 # The Magic
 Ok, first, I walked away from using Microsoft products in 2004 or so and have never looked back (except to laugh!)<br>
-If you want to do this on Windows (without loading up some Linux compatability programs) you are in your own...<br>
+If you want to do this on Windows (without loading up some Linux compatability programs) you are on your own...<br>
 That being said - Welcome!<br>
 ### Note 1:
 To save yourself some heartache, place ALL your bash shell scripts in "/home/$USER/.octoprint/scripts/"
 ### Why:
 The directory is backed up and restored with OctoPrint Backup command! I even put my boot and crontab files there.<br><br>
 
+Here is my Controls Page using <b>Custom Control Editor</b>
+
 ![](./images/Controls.png)
+
+That's a lot of stuff! Need it? No. But it is what led me down this rabbit hole...<br>
+And this is the little trick it taught me!
+
+![](./images/ThatLittleBit.png)
+
+This is configured in Custom Control Editor plugin.
+
+![](./images/WhyMe.png)
+
+This was derived from GCode Systems Commands plugin.<br>
+(See the stuff in red at the bottom?)
+
+![](./images/GCodeSystem.png)
+
+So it calls "Varuable.sh"<br>
+```
+#!/bin/bash
+# this is to give OP something to call
+# full paths required
+# $OCTOPRINT_GCODESYSTEMCOMMAND_ARGS=
+# "File=WhyMe.data Name=my_flag Value=true"
+
+# my_string="File=WhyMe.data Name=mine.my_State Value=false"
+my_string="$OCTOPRINT_GCODESYSTEMCOMMAND_ARGS"
+
+# Strip each part of the string
+# break at 'space'
+my_file=${my_string%%' '*}
+# delete the part captured
+my_newstring=${my_string/$my_file/}
+# break that at '='
+my_file=${my_file##*'='}
+# delete the leading space
+my_newstring=${my_newstring/# /}
+# rinse and repeat for all
+my_name=${my_newstring%%' '*}
+my_newstring=${my_newstring/$my_name/}
+my_name=${my_name##*'='}
+my_newstring=${my_newstring/# /}
+#my_value=${my_newstring%%' '*}
+my_value=${my_newstring##*'='}
+
+# sed -i 's/true/false/' /home/pi/.octoprint/data/gcode_macro/my_Logic.flag
+# {% set mine.my_State = true %}
+
+orig="{%- set $my_name = "
+rep="{%- set $my_name = $my_value -%}"
+
+cmd="/usr/bin/sed -i 's/$orig.*/$rep/' /home/pi/.octoprint/data/gcode_macro/$my_file"
+# echo "File is: $my_file"
+# echo "Name is: $my_name"
+# echo "Value is: $my_value"
+
+## /usr/bin/echo "$my_string" >> /home/pi/ShowMe
+## /usr/bin/echo "$cmd" >> /home/pi/ShowMe
+eval $cmd
+
+exit
+```
 
 [![Ko-Fi](./images/Ko-fi_Donate.png)](https://ko-fi.com/cmdrcody) or [![GitHub](./images/github-mark-small.png)](https://github.com/CmdrCody51/OctoPrint-Parametric-Macros) Use GitHub!
 
