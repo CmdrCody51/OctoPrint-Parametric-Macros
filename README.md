@@ -32,6 +32,9 @@ To save yourself some heartache, place ALL your bash shell scripts in "/home/$US
 ### Why:
 The directory is backed up and restored with OctoPrint Backup command! I even put my boot and crontab files there.<br><br>
 
-![](./image/some.png)
+![](./images/Controls.png)
 
-The End.
+[![Ko-Fi](./images/Ko-fi_Donate.png)](https://ko-fi.com/cmdrcody) or [![GitHub](./images/github-mark-small.png)](https://github.com/CmdrCody51/OctoPrint-Parametric-Macros) Use GitHub!
+
+<small>You can also send funds via PayPal to cmdrcody&#64;pharowt&#46;com</small>
+
