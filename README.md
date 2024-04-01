@@ -95,6 +95,46 @@ eval $cmd
 
 exit
 ```
+Specifically, this lets me edit my runtime variables file from the Control Tab.<br>
+It also lets me edit them from the Gcode file!<br>
+For example:
+```
+;TYPE:Custom
+; custom gcode: start_gcode
+OCTO400 File=WhyMe.data Name=mine.my_LayerCount Value=0
+OCTO400 File=WhyMe.data Name=mine.my_LayerMatch Value=0
+OCTO400 File=WhyMe.data Name=mine.my_Layer Value=0
+OCTO400 File=WhyMe.data Name=mine.my_State Value=false
+OCTO401
+OCTO402 Name=64 Value="Place O-Ring"
+M117 ARC_WELD ; post processing flag if printer can do G02/G03
+; leave above as some post processors can remove comments
+G21 ; my set units to millimeters
+G90 ; my use absolute coordinates
+M82 ; my use absolute distances for extrusion
+[...]
+; custom gcode: start_filament_gcode
+;Filament gcode
+; extruder Black PLA
+; custom gcode end: start_filament_gcode
+;_TOOLCHANGE 0
+;LAYER_CHANGE
+M117 INDICATOR-Layer1
+;Z:0.2
+;HEIGHT:0.2
+; custom gcode: before_layer_gcode
+; Before layer change
+OCTO100
+G4 P500
+G1 F200 E25
+M400
+G92 E0
+OCTO400 File=WhyMe.data Name=mine.my_LayerFR Value=200
+@DoLayer
+; custom gcode end: before_layer_gcode
+[...]
+;TYPE:Skirt
+```
 
 [![Ko-Fi](./images/Ko-fi_Donate.png)](https://ko-fi.com/cmdrcody) or [![GitHub](./images/github-mark-small.png)](https://github.com/CmdrCody51/OctoPrint-Parametric-Macros) Use GitHub!
 
