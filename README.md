@@ -101,14 +101,25 @@ For example:
 ```
 ;TYPE:Custom
 ; custom gcode: start_gcode
+
+; Inserted from post processor script in SuperSlicer that converts a text file of
+; layer based actions manually entered from the slicers preview screen.
+
 OCTO400 File=WhyMe.data Name=mine.my_LayerCount Value=0
 OCTO400 File=WhyMe.data Name=mine.my_LayerMatch Value=0
 OCTO400 File=WhyMe.data Name=mine.my_Layer Value=0
 OCTO400 File=WhyMe.data Name=mine.my_State Value=false
 OCTO401
 OCTO402 Name=64 Value="Place O-Ring"
+
+; The only action is to place an O-Ring at the end of layer 64
+; I always stop after Layer 1 cause I ain't gonna print with a shitty first layer.
+
 M117 ARC_WELD ; post processing flag if printer can do G02/G03
 ; leave above as some post processors can remove comments
+
+; This trips my ArcWelder script post processor
+
 G21 ; my set units to millimeters
 G90 ; my use absolute coordinates
 M82 ; my use absolute distances for extrusion
@@ -119,18 +130,22 @@ M82 ; my use absolute distances for extrusion
 ; custom gcode end: start_filament_gcode
 ;_TOOLCHANGE 0
 ;LAYER_CHANGE
-M117 INDICATOR-Layer1
 ;Z:0.2
 ;HEIGHT:0.2
 ; custom gcode: before_layer_gcode
 ; Before layer change
 OCTO100
 G4 P500
+; This is my Tool change Servo based, I give it 1/2 second to complete
 G1 F200 E25
 M400
 G92 E0
 OCTO400 File=WhyMe.data Name=mine.my_LayerFR Value=200
+; Another post processor script looks for every @DoLayer line and saves the current Feedrate
+; in case I mess with it.
 @DoLayer
+; @DoLayer does everything. If I want timelapse or an action at a layer. All set with flags
+; in the WhyMe.data file.
 ; custom gcode end: before_layer_gcode
 [...]
 ;TYPE:Skirt
