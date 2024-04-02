@@ -1,0 +1,32 @@
+M117 Clearing Offsets
+M206 X0 Y0 Z0
+G4 P500
+M500
+{%- if mine.my_HeadType == 0 %}
+M117 Offsets For Original
+M92 X100 Y100.5 Z400 E103
+M306 E0 P40.00 C14.30 R0.0989 A0.0791 F0.1280 H0.0056
+{# M301 P18.73 I1.09 D80.16 #}
+M206 X-3 Y-2 Z0
+{%- endif -%}
+{%- if mine.my_HeadType == 1 %}
+M117 Offsets For Bowden
+M92 X100 Y100.5 Z400 E103
+M306 E0 P40.00 C14.30 R0.0989 A0.0791 F0.1280 H0.0056
+{# M301 P18.73 I1.09 D80.16 #}
+M206 X13 Y-3 Z-2.5
+{%- endif -%}
+{%- if mine.my_HeadType == 2 %}
+M117 Offsets For Laser
+M92 X100 Y100.5 Z400
+{%- endif -%}
+{%- if mine.my_HeadType == 3 %}
+M117 Offsets For Dial
+M92 X100 Y100.5 Z400
+M206 X17.8 Y-13 Z-6
+{%- endif %}
+G4 P500
+M304 P177.30 I33.82 D619.72
+M500
+G28 XY
+G28 Z

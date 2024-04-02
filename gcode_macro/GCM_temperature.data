@@ -1,0 +1,24 @@
+{%- set mine.my_data = ({
+  "temperature": {
+    "CPU": {
+      "actual": 39.704,
+      "offset": 0,
+      "target": null
+    },
+    "W": {
+      "actual": 4294967.0,
+      "offset": 0,
+      "target": null
+    },
+    "bed": {
+      "actual": 64.99,
+      "offset": 0,
+      "target": 65.0
+    },
+    "tool0": {
+      "actual": 194.77,
+      "offset": 0,
+      "target": 195.0
+    }
+  }
+}) -%}

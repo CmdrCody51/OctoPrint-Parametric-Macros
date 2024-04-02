@@ -1,0 +1,42 @@
+{%- include 'WhyMe.data' -%}
+{%- include 'GCM_temperature.data' -%}
+{%- if mine.my_BedLevelCnt == 0 %}
+M117 Heating Bed
+G4 S3
+{%- if (mine.my_data["temperature"]["bed"]["actual"] - mine.my_BedTemp)|abs <= 2 %}
+OCTO600 BLV.dat
+M117 Bed is Hot
+G4 S3
+{%- else %}
+OCTO600 BLV.dat
+M190 S{{ mine.my_BedTemp }}
+M117 Bed is Hot
+G4 S3
+M117 Heatsoak 15 Min
+G4 S295 ; my board runs fast 1s/m add time to timeout 4 BLV
+M117 Heatsoak 10 Min
+G4 S295 ; my board runs fast 1s/m add time to timeout 4 BLV
+M117 Heatsoak 5 Min
+G4 S265 ; my board runs fast 1s/m add time to timeout 4 BLV
+M117 Heatsoak 30 Sec
+G4 S29 ; my board runs fast 1s/m add time to timeout 4 BLV
+{%- endif %}
+G28 XY
+M117 Homing
+M400
+G28 Z
+M420 S0
+M117 Runing G29
+G29
+M500
+M117 Saving Mesh
+{%- else %}
+OCTO600 BLV.dat
+M117 Pulling Bed Mesh
+M420 V1
+{%- endif %}
+OCTO601 BLV.dat
+OCTO400 File=WhyMe.data Name=mine.my_BedLevelCnt Value={{ mine.my_BedLevelCnt + 1 }}
+{%- if mine.my_BedLevelCnt >= 10 %}
+OCTO400 File=WhyMe.data Name=mine.my_BedLevelCnt Value=0
+{%- endif -%}

@@ -1,0 +1,52 @@
+M206 X0 Y0 Z0
+M117 Homing
+M155 S0
+G28
+G0 Z50 F9000
+G0 X110 Y110
+M117 Load Blocks 1
+M400
+M1 Load Blocks 1
+G1 F5000 Z0
+M400
+M18
+G4 S5
+G1 Z30
+M117 Remove Blocks 1 of 3
+M400
+M1 Remove Blocks 1 of 3
+G28
+G0 Z50 F9000
+G0 X110 Y110
+M117 Load Blocks 2
+M400
+M1 Load Blocks 2
+G1 F1250 Z0
+M400
+M18
+G4 S5
+G1 Z30
+M117 Remove Blocks 2 of 3
+M400
+M1 Remove Blocks 2 of 3
+G28
+G0 Z50 F9000
+G0 X110 Y110
+M117 Load Blocks 3
+M400
+M1 Load Blocks 3
+G1 F500 Z0
+M400
+M18
+G4 S5
+G1 Z45
+M117 Remove Blocks 3 of 3
+M400
+M1 Remove Blocks 3 of 3
+G28
+G1 Z50
+M117 Complete
+M155 S5
+G0 X110 Y110 F9000
+M501
+OCTO400 File=WhyMe.data Name=mine.my_BedLevelCnt Value=0

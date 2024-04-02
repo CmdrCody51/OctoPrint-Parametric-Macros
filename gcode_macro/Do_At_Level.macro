@@ -1,0 +1,20 @@
+{%- include 'WhyMe.data' -%}
+{%- if mine.my_State %}
+M400 ; complete all motion
+G60 ; store XYZEF (fw)
+G91 ; incremental
+G1 Z1 E-{{ mine.Retract }}; lift Z to clear part
+G90 ; back to absolute
+G0 X{{ mine.my_TLPts.0 }} Y{{ mine.my_TLPts.1 }} F10000 ; clear the build area
+M400 ; complete all motion
+G4 P{{ mine.my_Delay }}
+G61 XY ; return to saved position (fw)
+G91 ; incremental
+G1 Z-1 E{{ mine.Retract }}
+G90 ; back to absolute
+G61 ; return to saved position (fw)
+{%- endif %}
+OCTO400 File=WhyMe.data Name=mine.my_LayerCount Value={{ mine.my_LayerCount + 1 }}
+{%- if mine.my_LayerCount == mine.my_Layer %}
+OCTO400 File=WhyMe.data Name=mine.my_State Value=true
+{%- endif -%}

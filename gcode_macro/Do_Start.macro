@@ -1,0 +1,24 @@
+{%- include 'WhyMe.data' -%}
+{%- if mine.my_State %}
+G21 ; my set units to millimeters
+G90 ; my use absolute coordinates
+M82 ; my use absolute distances for extrusion
+M104 S{{ mine.my_BedTemp-5 }} ; set bed temp
+M106 S255
+M109 S{{ mine.my_HotendTemp-5 }} ; set extruder temp
+M190 S{{ mine.my_BedTemp }} ; wait for bed temp
+G28 ; home all
+M400
+M109 S{{ mine.my_HotendTemp }} ; wait for extruder temp
+G1 Z15 F480 ; Move the hotend up 15mm
+M107 ; my disable fan
+G92 E0 ; reset extrusion distance
+OCTO100
+G4 P500
+G1 E20 F300
+M400
+G92 E0
+M220 S{{ mine.my_Feedrate }} ; set feedrate
+M221 S{{ mine.my_Flowrate }} ; set flowrate
+OCTO202 ; turn lights off
+{%- endif -%}

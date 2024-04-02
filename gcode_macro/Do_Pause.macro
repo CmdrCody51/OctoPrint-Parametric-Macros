@@ -1,0 +1,24 @@
+{%- include 'WhyMe.data' -%}
+{%- if mine.my_Pause -%}
+M400 ; complete all motion
+G60 ; store XYZEF (fw)
+G91 ; incremental
+G1 Z{{ mine.my_Z_Lift }} E-{{ mine.my_Retract }}; lift Z to clear part
+G90 ; back to absolute
+G0 X{{ mine.my_TLPts.0 }} Y{{ mine.my_TLPts.1 }} F10000 ; clear the build area
+M400 ; complete all motion
+M18 S0
+OCTO203 ; turn lights on
+{%- if message is defined -%}
+M117 {{ message }}
+{%- endif -%}
+M300 P1000 ; beep if you got em
+M1 ; pause using printers pause
+M18 S30
+G61 XY
+G91
+G1 Z-{{ mine.my_Z_Lift }} E{{ mine.my_Retract }}
+G90
+G61 F{{ mine.my_LayerFR }} ; return to saved position (fw)
+{%- endif -%}
+OCTO202 ; turn lights off

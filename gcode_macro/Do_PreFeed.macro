@@ -1,0 +1,26 @@
+{%- include 'WhyMe.data' -%}
+{%- include 'GCM_temperature.data' %}
+M117 PreFeed T{{ mine.my_PFT }}
+G4 P500
+{%- if mine.my_data["temperature"]["tool0"]["actual"] < mine.my_HotendMinTemp %}
+M300 P1000
+M117 Heat Tool First
+G4 P500
+{%- else %}
+OCTO10{{ mine.my_PFT }}
+G4 P500
+G91
+{%- for s in range(mine.my_MaxExt,mine.my_PreFeed,mine.my_MaxExt) %}
+G1 E{{ mine.my_MaxExt }} F400
+M400
+{%- endfor -%}
+{%- set finish = mine.my_PreFeed % mine.my_MaxExt -%}
+{%- if finish != 0 %}
+G1 E{{ finish }} F400
+M400
+{%- endif %}
+G90
+{%- endif %}
+OCTO104
+G4 P500
+M300 P1000 

@@ -1,0 +1,33 @@
+{%- include 'WhyMe.data' -%}
+{%- if mine.my_TimeLapse %}
+M400 ; complete all motion
+G60 ; store XYZEF (fw)
+G91 ; incremental
+G0 Z{{ mine.my_Z_Lift }} E-{{ mine.my_Retract }}; lift Z to clear part
+G90 ; back to absolute
+G0 X{{ mine.my_TLPts.0 }} Y{{ mine.my_TLPts.1 }} F10000 ; clear the build area
+M400 ; complete all motion
+G91
+{%- if mine.my_LayerCount == 1 -%}
+{%- for i in range(6) %}
+OCTO198
+G4 P200 ; Do we need this?
+G1 Z2
+G4 P200 ; Do we need this?
+G1 Z-2
+{%- endfor -%}
+{%- else %}
+OCTO198
+G4 P200 ; Do we need this?
+G1 Z2
+G4 P200 ; Do we need this?
+G1 Z-2
+{%- endif %}
+G90
+G61 XY ; return to saved position (fw)
+G91 ; incremental
+G1 Z-{{ mine.my_Z_Lift }} E{{ mine.my_Retract }}
+G90 ; back to absolute
+G1 F{{ mine.my_LayerFR }}
+G61 ; return to saved position (fw)
+{%- endif -%}

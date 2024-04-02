@@ -1,0 +1,19 @@
+{%- include 'WhyMe.data' -%}
+{%- include 'GCM_temperature.data' -%}
+M117 Morning Start
+{%- if mine.my_data["temperature"]["tool0"]["actual"] > 35 -%}
+M104 S{{ mine.my_data["temperature"]["tool0"]["actual"] }}
+{%- endif -%}
+M190 S67
+G4 S120
+M106 S255
+{%- if mine.my_data["temperature"]["tool0"]["actual"] < 35 -%}
+M109 S185
+{%- endif -%}
+M190 S67
+M109 S185
+M107
+G4 S120
+M300 P1000
+M77
+M117 Not Printing

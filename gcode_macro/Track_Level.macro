@@ -1,0 +1,85 @@
+{%- include 'WhyMe.data' -%}
+{%- if mine.my_LayerCount == mine.my_Layer %}
+OCTO400 File=WhyMe.data Name=mine.my_State Value=true
+{# this makes the script run at the 'end' of the selected layer #}
+{%- endif -%}
+{%- if mine.my_LayerCount == 0 %}
+G1 X60 Y60 F2500
+G91
+{%- if mine.my_ABL %}
+{%- set adj = mine.my_Fix_Zon -%}
+{%- else -%}
+{%- set adj = mine.my_Fix_Zoff -%}
+{%- endif -%}
+M290 P0 Z{{ adj / 5.0 }}
+G1 X1 Y1
+M400
+M290 P0 Z{{ adj / 5.0 }}
+G1 X1 Y1
+M400
+M290 P0 Z{{ adj / 5.0 }}
+G1 X-1 Y-1
+M400
+M290 P0 Z{{ adj / 5.0 }}
+G1 X1 Y1
+M400
+M290 P0 Z{{ adj / 5.0 }}
+G1 X-1 Y-1
+M400
+M75
+{%- if mine.my_ABL %}
+M420 S1 Z5
+{%- else -%}
+M420 S0
+{%- endif -%}
+M220 S{{ mine.my_Feedrate }}
+M221 S{{ mine.my_Flowrate }}
+G90
+G1 F{{ mine.my_LayerFR }}
+{%- endif -%}
+{%- if mine.my_State %}
+M400 ; complete all motion
+G91 ; incremental
+G1 Z{{ mine.my_Z_Lift }} E-{{ mine.my_Retract }}; lift Z to clear part
+G90 ; back to absolute
+G60 ; store XYZEF (fw)
+G0 X{{ mine.my_TLPts.0 }} Y{{ mine.my_TLPts.1 }} F10000 ; clear the build area
+M400 ; complete all motion
+M18 S0 ; lock steppers ON
+OCTO203 ; turn lights ono
+M300 P1000 ; beep if you got em
+{%- include 'Level.data' -%}
+{%- set message = mine.my_Levels[mine.my_LayerMatch][1] -%}
+{%- set new_ptr = mine.my_LayerMatch+1 -%}
+{%- set arr_len = mine.my_Levels|length -%}
+{%- set cur_ptr = mine.my_Levels[mine.my_LayerMatch][0] -%}
+{%- if message is defined %}
+M117 {{ message }}
+M1 {{ message }} ; pause using printers pause
+{%- else %}
+M1 ; pause using printers pause
+{%- endif %}
+M18 S30 ; restore steppers
+G1 X110 Y110
+M400
+OCTO202 ; turn lights off
+{%- if new_ptr < arr_len %}
+OCTO400 File=WhyMe.data Name=mine.my_LayerMatch Value={{ mine.my_LayerMatch + 1 }}
+OCTO400 File=WhyMe.data Name=mine.my_Layer Value={{ mine.my_Levels[new_ptr][0] }}
+{%- else %}
+OCTO400 File=WhyMe.data Name=mine.my_Layer Value=0
+{%- endif %}
+{%- if new_ptr < arr_len %}
+{%- if not ((mine.my_Layer + 1) == (mine.my_Levels[new_ptr][0])) %}
+OCTO400 File=WhyMe.data Name=mine.my_State Value=false
+{%- endif %}
+{%- else %}
+OCTO400 File=WhyMe.data Name=mine.my_State Value=false
+{%- endif %}
+G61 ; return to saved position (fw)
+M400
+G91 ; incremental
+G1 Z-{{ mine.my_Z_Lift }} E{{ mine.my_Retract }} F{{ mine.my_LevelFR }}
+G90 ; back to absolute
+{%- endif %}
+OCTO400 File=WhyMe.data Name=mine.my_LayerCount Value={{ mine.my_LayerCount + 1 }}
