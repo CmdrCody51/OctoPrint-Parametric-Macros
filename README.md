@@ -1,8 +1,8 @@
-# OctoPrint-Parametric-Macros
+# OctoPrint-Parametric-Macros #
 Setting up and using parametric macros using OctoPrint and various plugins.
   Along with other hints and tricks.
 
-## Select and install the plugins
+## Select and install the plugins ##
 Run, don't walk, to https://plugins.octoprint.org/
 and get:<br>
 <li>
@@ -16,41 +16,41 @@ and get:<br>
     This OctoPrint plugin adds the ability to define GCode commands that execute local system commands.<br><br>
     </li><br>
 
-## You can also use this plugin(maybe)
+## You can also use this plugin(maybe) ##
 <li>
   Custom Control Editor https://plugins.octoprint.org/plugins/customControl/<br>
     Makes custom controls editable via the settings dialog.<br>
     This plugin helps you create, edit and delete your custom controls. You can easily access all the options in the settings under “Custom Control Editor”.<br>
 </li><br>
 
-# The Magic
+# The Magic #
 Ok, first, I walked away from using Microsoft products in 2004 or so and have never looked back (except to laugh!)<br>
 If you want to do this on Windows (without loading up some Linux compatability programs) you are on your own...<br>
 That being said - Welcome!<br>
-### Note 1:
+### Note 1: ###
 To save yourself some heartache, place ALL your bash shell scripts in "/home/$USER/.octoprint/scripts/"
-### Why:
+### Why: ###
 The directory is backed up and restored with OctoPrint Backup command! I even put my boot and crontab files there.<br><br>
 
-Here is my Controls Page using <b>Custom Control Editor</b>
+## This is only a quick review with no real instructions
+
+<b>Here is my Controls Page using Custom Control Editor</b>
 
 ![](./images/Controls.png)
 
-That's a lot of stuff! Need it? No. But it is what led me down this rabbit hole...<br>
-And this is the little trick it taught me!
+<b>That's a lot of stuff! Need it? No. But it is what led me down this rabbit hole...<br>And this is the little trick it taught me!</b>
 
 ![](./images/ThatLittleBit.png)
 
-This is configured in Custom Control Editor plugin.
+<b>This is configured in Custom Control Editor plugin.</b>
 
 ![](./images/WhyMe.png)
 
-This was derived from GCode Systems Commands plugin.<br>
-(See the stuff in red at the bottom?)
+<b>This was derived from GCode Systems Commands plugin.<br>(See the stuff in red at the bottom?)</b>
 
 ![](./images/GCodeSystem.png)
 
-So it calls "Variable.sh"<br>
+<b>So it calls "Variable.sh"</b>
 ```
 #!/bin/bash
 # this is to give OP something to call
@@ -95,9 +95,7 @@ eval $cmd
 
 exit
 ```
-Specifically, this lets me edit my runtime variables file from the Control Tab.<br>
-It also lets me edit them from the Gcode file!<br>
-For example:
+<b>Specifically, this lets me edit my runtime variables file from the Control Tab.<br>It also lets me edit them from the Gcode file!<br>For example:</b>
 ```
 ;TYPE:Custom
 ; custom gcode: start_gcode
@@ -112,7 +110,7 @@ OCTO400 File=WhyMe.data Name=mine.my_State Value=false
 OCTO401
 OCTO402 Name=64 Value="Place O-Ring"
 
-; The only action is to place an O-Ring at the end of layer 64
+; The only action is to place an O-Ring at the start of layer 65 (see notes)
 ; I always stop after Layer 1 cause I ain't gonna print with a shitty first layer.
 
 M117 ARC_WELD ; post processing flag if printer can do G02/G03
@@ -150,6 +148,11 @@ OCTO400 File=WhyMe.data Name=mine.my_LayerFR Value=200
 [...]
 ;TYPE:Skirt
 ```
+
+## That was a little taste ##
+
+Each subdirextory contains my code and explains how it is used and how it is related to the other parts of my "system" (I am so funny).
+Enjoy!
 
 [![Ko-Fi](./images/Ko-fi_Donate.png)](https://ko-fi.com/cmdrcody) or [![GitHub](./images/github-mark-small.png)](https://github.com/CmdrCody51/OctoPrint-Parametric-Macros) Use GitHub!
 
