@@ -1,0 +1,394 @@
+controls:- children:
+  - enabled: true
+    javascript: window.open("http://192.168.0.32/")
+    name: Lights
+  - enabled: true
+    javascript: window.open("http://192.168.0.31/")
+    name: Action
+  - commands:
+    - OCTO199
+    name: Clear Logs
+  - commands:
+    - M108
+    confirm: null
+    name: Break/Continue
+  - command: M112
+    confirm: null
+    name: --<|  E-Stop  |>--
+  - command: '@Do_EEprom'
+    confirm: You are about to wipe out your EEPROM!
+    name: '* Restore EEPROM *'
+  - commands:
+    - G28
+    - '@Do_Mesh'
+    - M117 Mesh Reloaded
+    confirm: You are about to wipe out your MBL!
+    name: '* Restore Mesh *'
+  - enabled: true
+    javascript: window.open("http://makerpi.local/OPUtil.php")
+    name: ShowMe
+  - command: OCTO400 File=%(myf)s Name=%(myn)s Value=%(myv)s
+    confirm: You are about to modify the run time parameters of your Macro files!
+    input:
+    - default: WhyMe.data
+      name: File
+      parameter: myf
+      slider: false
+    - default: mine.my_
+      name: Name
+      parameter: myn
+      slider: false
+    - default: ''
+      name: Value
+      parameter: myv
+      slider: false
+    name: Parameters
+  layout: horizontal
+  name: Printer Cube
+- children:
+  - commands:
+    - M117 Heaters Off
+    - M104 S0
+    - M140 S0
+    name: Heaters Off
+  - commands:
+    - M117 Steppers Off
+    - M107
+    - M84
+    name: SteppersOff
+  - commands:
+    - M117 Winter Warm Up
+    - M104 S20
+    - M140 S21
+    - G4 P8000
+    - M104 S13
+    - G4 S35
+    - M104 S21
+    - ''
+    confirm: null
+    name: Winter
+  - command: '@Do_MorningStart'
+    confirm: null
+    name: Morning
+  - command: '@Do_JR'
+    confirm: null
+    name: JammaRama
+  - commands:
+    - M117 Clear Table
+    - G90
+    - G1 X5 Y215 F3600
+    name: Clear Table
+  - commands:
+    - M140 S50
+    - M117 Bed to 50
+    name: PreHeat Bed
+  - commands:
+    - M140 S62
+    - M117 Bed to 62
+    name: PreHeat Bed2
+  - commands:
+    - M104 S120
+    - M117 Hotend to 120
+    name: PreHeat Ext
+  - commands:
+    - M104 S175
+    - M117 Hotend to 175
+    name: PreHeat Ext2
+  - commands:
+    - M117 Cool Down [B]
+    - M140 S0
+    - M106 S255
+    - M109 R40
+    - M104 S0
+    - M300 P1000
+    - M107
+    name: CoolDown[B]
+  - commands:
+    - 'M117 PreHt #3 PLA [B]'
+    - M190 S71
+    - M106 S255
+    - M109 S199
+    - M300 P1000
+    - M107
+    - M77
+    - M117 Not Printing
+    confirm: null
+    name: PreHeat3-PLA[B]
+  - commands:
+    - 'M117 PreHt #3 PETG [B]'
+    - M190 S75
+    - M106 S255
+    - M109 S205
+    - M300 P1000
+    - M107
+    - M77
+    confirm: null
+    name: PreHeat3-PETG[B]
+  - commands:
+    - G91
+    - G1 Z20 E-4
+    - M400
+    - G90
+    - OCTO104 ; clear tools
+    - G1 X110 Y170 F3200
+    - OCTO191 ; turn on fan
+    - M104 S175
+    - M190 R40
+    - M300 P500
+    - ''
+    confirm: null
+    name: Interpart Reset
+  - commands:
+    - OCTO190 ; fan off
+    - M140 S65
+    - G1 X110 Y110 Z20 F3200
+    - M220 S100
+    - M190 S65
+    - M300 P1000
+    - ''
+    - ''
+    confirm: Have you removed the part?
+    name: Next Part
+  - commands:
+    - M117 Moving to 0,0,0
+    - G90
+    - G01 X0 Y0 F3600
+    - G01 X0 Y0 Z0 F600
+    name: GoToZero
+  - commands:
+    - '@Do_Check_Z'
+    name: Check Z
+  - commands:
+    - M117 Parking
+    - G90
+    - G0 X110 Y110 F3600
+    name: Park
+  - command: M410
+    name: E-Stop
+  - commands:
+    - '@Do_Shutdown'
+    name: Shutdown
+  - command: '@FourCorners'
+    name: 4 Corners
+  layout: horizontal
+  name: Pre/Post Print
+- children:
+  - commands:
+    - M117 Heat Extruder Pull Filament
+    - M106 S255
+    - M104 S200
+    - M107
+    confirm: null
+    name: Heat-up
+  - commands:
+    - M117 Cool Down [B]
+    - M140 S0
+    - M106 S255
+    - M109 R40
+    - M104 S0
+    - M300 P1000
+    - M117 Complete
+    - M107
+    name: Cooldown[B]
+  - commands:
+    - M117 Kill Steppers
+    - M107
+    - M84
+    confirm: null
+    name: Kill Steppers
+  - commands:
+    - G91
+    - G1 F300 E120
+    - G90
+    confirm: null
+    name: Load From Park
+  - commands:
+    - G91
+    - M109 S200
+    - G1 F300 E-7
+    - G1 F900 E2
+    - G4 S5
+    - G1 F2900 E-130
+    - G1 F300 E10
+    - G90
+    confirm: null
+    name: Park Filament
+  - commands:
+    - M117 Clear All Tools
+    - OCTO104
+    name: Clear All Tools
+  - commands:
+    - M117 Select Tool 0
+    - OCTO100
+    confirm: null
+    name: Select T0/C0
+  - commands:
+    - M117 Select Tool 1
+    - OCTO101
+    confirm: null
+    name: Select T1/C1
+  - commands:
+    - M117 Select Tool 2
+    - OCTO102
+    confirm: null
+    name: Select T2/C2
+  - commands:
+    - M117 Select Tool 3
+    - OCTO103
+    confirm: null
+    name: Select T3/C3
+  - commands:
+    - '@Do_PF0'
+    - ''
+    confirm: You sure?
+    name: PreFeed T0
+  - command: '@Do_PF1'
+    confirm: You sure?
+    name: PreFeed T1
+  - commands:
+    - '@Do_PF2'
+    - ''
+    confirm: You sure?
+    name: PreFeed T2
+  - commands:
+    - '@Do_PF3'
+    - ''
+    confirm: You sure?
+    name: PreFeed T3
+  - commands:
+    - G90
+    - M109 S195
+    - G28
+    - G1 Z120 F600
+    name: Clean Nozzle
+  - commands:
+    - M117 Enable Cold Extrude
+    - M302 P1
+    name: EnableColdExtruder
+  - commands:
+    - M117 Disable Cold Extrude
+    - M302 P0
+    name: RestoreExtruder
+  layout: horizontal
+  name: Filament
+devel: {}
+events:
+  subscriptions:
+  - command: /home/pi/.octoprint/scripts/OctoStatus.sh "{__eventname}"
+    debug: false
+    enabled: true
+    event: PrintStarted
+    name: SetPrinting
+    type: system
+  - command: /home/pi/.octoprint/scripts/OctoStatus.sh "{__eventname}"
+    debug: false
+    enabled: true
+    event: PrintFailed
+    name: SetFailed
+    type: system
+  - command: /home/pi/.octoprint/scripts/OctoStatus.sh "{__eventname}"
+    debug: false
+    enabled: true
+    event: PrintDone
+    name: SetDone
+    type: system
+  - command: /home/pi/.octoprint/scripts/OctoStatus.sh "{__eventname}"
+    debug: false
+    enabled: true
+    event: PrintCancelled
+    name: SetCancelled
+    type: system
+  gcode_macro:
+    _config_version: 1
+    macros:
+    - command: Do_Pic
+      description: Take a picture like OctoLapse but use built in timelapse feature.
+    - command: Do_PF0
+      description: Prefeed filament for Tool 0
+    - command: Do_JR
+      description: Run RammaJamma script to force Z Axis alignment
+    - command: Begin
+      description: Startup Macro
+    - command: Do_Check_Z
+      description: Macro to set Z to proper 0.
+    - command: FourCorners
+      description: |-
+        Home and do the Four Corners
+        Record the Z's and Level
+    - command: First_Layer
+      description: Pauses printer to check first layer
+    - command: Do_PF3
+      description: Prefeed filament for Tool 3
+    - command: Test
+      description: Testing stuff
+    - command: Do_MorningStart
+      description: Warm up in the morning or after an Abort
+    - command: DoLayer
+      description: Track layers. Perform specified actions on marked layers.
+    - command: Do_EEprom
+      description: |-
+        Restores EEprom to defaults, Calls ZeroMesh and Calibration macros.
+        Has no data requirements.
+    - command: Do_Bed
+      description: Bed Level Check
+    - command: Do_Action
+      description: Action Required by Operator
+    - command: Do_Mesh
+      description: |-
+        Restore last saved mesh (not auto yet)
+        No data required.
+    - command: Do_PF2
+      description: Prefeed filament for Tool 2
+    - command: 2D
+      description: Z-lift Restore Hider
+    - command: 2U
+      description: Z-lift Hider
+    - command: DoDwell
+      description: Pause for layer time delay starting at a Specified layer for Specified
+        time. Uses WhyMe.data my_Layer and my_Delay
+    - command: Do_PF1
+      description: Prefeed filament for Tool 1
+  gcodesystemcommands:
+    command_definitions:
+    - command: /usr/bin/python3 /home/pi/.octoprint/scripts/Servo/ServoTool0.py
+      id: '100'
+    - command: /usr/bin/python3 /home/pi/.octoprint/scripts/Servo/ServoTool1.py
+      id: '101'
+    - command: /usr/bin/python3 /home/pi/.octoprint/scripts/Servo/ServoTool2.py
+      id: '102'
+    - command: /usr/bin/python3 /home/pi/.octoprint/scripts/Servo/ServoTool3.py
+      id: '103'
+    - command: /usr/bin/python3 /home/pi/.octoprint/scripts/Servo/ServoToolClear.py
+      id: '104'
+    - command: /home/pi/.octoprint/scripts/BCFStop.sh
+      id: '190'
+    - command: /home/pi/.octoprint/scripts/BCFStart.sh
+      id: '191'
+    - command: /home/pi/.octoprint/scripts/EnablePhoto.sh
+      id: '197'
+    - command: /home/pi/.octoprint/scripts/Do_Photo.sh
+      id: '198'
+    - command: /home/pi/.octoprint/scripts/ClrLogs.sh
+      id: '199'
+    - command: /home/pi/.octoprint/scripts/POff.sh
+      id: '200'
+    - command: /home/pi/.octoprint/scripts/POn.sh
+      id: '201'
+    - command: /home/pi/.octoprint/scripts/LOff.sh
+      id: '202'
+    - command: /home/pi/.octoprint/scripts/LOn.sh
+      id: '203'
+    - command: /home/pi/.octoprint/scripts/LFalse.sh
+      id: '300'
+    - command: /home/pi/.octoprint/scripts/LTrue.sh
+      id: '301'
+    - command: /home/pi/.octoprint/scripts/Variable.sh
+      id: '400'
+    - command: /home/pi/.octoprint/scripts/LevelClear.sh
+      id: '401'
+    - command: /home/pi/.octoprint/scripts/LevelAdd.sh
+      id: '402'
+    - command: /home/pi/.octoprint/scripts/TStart.sh
+      id: '600'
+    - command: /home/pi/.octoprint/scripts/TStop.sh
+      id: '601'
