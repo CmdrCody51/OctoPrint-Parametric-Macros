@@ -1,4 +1,5 @@
-controls:- children:
+controls:
+- children:
   - enabled: true
     javascript: window.open("http://192.168.0.32/")
     name: Lights
@@ -64,7 +65,6 @@ controls:- children:
     - M104 S13
     - G4 S35
     - M104 S21
-    - ''
     confirm: null
     name: Winter
   - command: '@Do_MorningStart'
@@ -135,7 +135,6 @@ controls:- children:
     - M104 S175
     - M190 R40
     - M300 P500
-    - ''
     confirm: null
     name: Interpart Reset
   - commands:
@@ -145,8 +144,6 @@ controls:- children:
     - M220 S100
     - M190 S65
     - M300 P1000
-    - ''
-    - ''
     confirm: Have you removed the part?
     name: Next Part
   - commands:
@@ -239,7 +236,6 @@ controls:- children:
     name: Select T3/C3
   - commands:
     - '@Do_PF0'
-    - ''
     confirm: You sure?
     name: PreFeed T0
   - command: '@Do_PF1'
@@ -247,12 +243,10 @@ controls:- children:
     name: PreFeed T1
   - commands:
     - '@Do_PF2'
-    - ''
     confirm: You sure?
     name: PreFeed T2
   - commands:
     - '@Do_PF3'
-    - ''
     confirm: You sure?
     name: PreFeed T3
   - commands:
