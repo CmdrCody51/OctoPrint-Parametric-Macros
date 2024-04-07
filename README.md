@@ -151,7 +151,7 @@ OCTO400 File=WhyMe.data Name=mine.my_LayerFR Value=200
 
 ## That was a little taste ##
 
-Each subdirextory contains my code and explains how it is used and how it is related to the other parts of my "system" (I am so funny).
+Each subdirectory contains my code and explains how it is used and how it is related to the other parts of my "system" (I am so funny).
 Enjoy!
 
 [![Ko-Fi](./images/Ko-fi_Donate.png)](https://ko-fi.com/cmdrcody) or [![GitHub](./images/github-mark-small.png)](https://github.com/CmdrCody51/OctoPrint-Parametric-Macros) Use GitHub!
