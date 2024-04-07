@@ -45,10 +45,8 @@ You only subscribe to the events you want, so I don't care about Pause and Resum
 
 # GCode Macros #
 
-Has its own diredtory.
+Has its own directory.
 
 # GCode System Commands #
 
-Literally, an "OCTO" followed by a number. This sets up a call to the operating system to perform a task.<br>
-The main requirement is that the task is quick. You don't want the whole system hanging for seconds while your<br>
-little database program decides to reindex your tables...<br>
+Has its own directory LinuxScripts.
