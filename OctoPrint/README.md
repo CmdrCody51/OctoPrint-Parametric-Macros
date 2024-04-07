@@ -45,7 +45,7 @@ You only subscribe to the events you want, so I don't care about Pause and Resum
 
 # GCode Macros #
 
-Has its own directory.
+Has its own directory gcode_macros.
 
 # GCode System Commands #
 
