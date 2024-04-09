@@ -43,8 +43,7 @@ The format of these data files are for the include statements in <b>jinja2</b> a
     This command tacks on more layer operations onto the end of the Layer.data file to expand the array.
   </li>
 </ul>
-All of these are inserted into my Gcode file from a post processor script of my slicer.<br>
+All of these are inserted into my Gcode file from a post processor script of my <br><br>
 
-### Notes: ###
-
-The file <b>OctoStatus.sh</b> is used with the <b>OctoPrint</b> config.yaml Events call back.<br>
+> Note: <br>
+The file <b>OctoStatus.sh</b> is used with the <b>OctoPrint</b> config.yaml Events call back.
