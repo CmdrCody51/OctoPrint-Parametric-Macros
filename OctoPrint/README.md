@@ -25,13 +25,12 @@ The <b>javascript</b> calls any standard javascript that makes sense.<br>
 I use mine to open new browser tabs pointing to my Tasmota switches for lights and power,<br>
 as well as calling my local webserver [ShowMe] to display my data files. I have a poor memory<br>
 and it's just easier...<br><br>
-:red_circle: config.yaml requires specific formatting!<br>
-:red_circle: Always make a backup of the file before editing and expect the edit to fail!<br><br>
+ :warning: Warning:  config.yaml requires specific formatting!<br>
+ :warning: Warning:  Always make a backup of the file before editing and expect the edit to fail!<br><br>
 With Custom Control Editor, you can call <b>any Gcode</b> that OctoPrint or your printer can process<br>
-including <b>Gcode System Commands</b> and <b>Gcode Macros</b>.
+including <b>Gcode System Commands</b> and <b>Gcode Macros</b>.<br><br>
 
-### Note: ###
-
+> Note: <hbr>
 Another plugin you may find useful is <b>Marlin GCode Documentation</b> which ties into the Terminal Tab<br>
 and displays the structure and purpose of Gcodes you type on the Send line. It is a bit of a misnomer as<br>
 it will work for RepRap and Klipper as well!<br>
