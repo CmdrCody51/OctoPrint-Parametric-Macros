@@ -27,9 +27,10 @@ and get:<br>
 Ok, first, I walked away from using Microsoft products in 2004 or so and have never looked back (except to laugh!)<br>
 If you want to do this on Windows (without loading up some Linux compatability programs) you are on your own...<br>
 That being said - Welcome!<br>
-### Note 1: ###
-To save yourself some heartache, place ALL your bash shell scripts in "/home/$USER/.octoprint/scripts/"
-### Why: ###
+
+> Note: <br> 
+To save yourself some heartache, place ALL your bash shell scripts in "/home/$USER/.octoprint/scripts/"<br>
+Why?<br>
 The directory is backed up and restored with OctoPrint Backup command! I even put my boot and crontab files there.<br><br>
 
 ## This is only a quick review with no real instructions
