@@ -2,9 +2,20 @@
 
 Literally, an "OCTO" followed by a number. This sets up a call to the operating system to perform a task.<br>
 The main requirement is that the task is quick. You don't want the whole system hanging for seconds while your<br>
-little database program decides to reindex your tables...<br><br>
+little database program decides to reindex your tables...<br>
+### The Overview ###
 I decided to start my numbering scheme at 100. For me, it's a subconscious trick to leave plenty of room for<br>
-adding things I didn't know I needed when I start out. I took the numbering up at OCTO##0 as Off and OCTO##1 as On.<br><br>
+adding things I didn't know I needed when I start out. I took the numbering up at OCTO##0 as Off and OCTO##1 as On.<br>
+![](../images/SystemCmd.png)<br>
+When the system call is made, the following items are included as environment variables:<br>
+<table><tr><th>Variable</th><th>Value</th></tr>
+<tr><td>OCTOPRINT_GCODESYSTEMCOMMAND_ID</td><td>Just the number 200 etc.</td></tr>
+<tr><td>OCTOPRINT_GCODESYSTEMCOMMAND_ARGS</td><td>Everything following the number</td></tr>
+<tr><td>OCTOPRINT_GCODESYSTEMCOMMAND_LINE</td><td>The whole line</td></tr>
+</table>
+I could have used these many different ways. I could have used one script, say for Power as above, and keyed whether<br>
+On or Off by using the __ID number itself. That would save me space on the file system but would make it take longer to run.<br>
+If you run on Windows, I have no idea how fast the shell takes to load to process a script but it is important.<br><br>
 <b>We are going to blow by my tool change scripts because I think they are too specialized and in turmoil at this time.</b><br><br>
 So we are at 'OCTO190/191' that uses Raspberry Pi GPIO library to turn a pin off and on. This pin is connected to a MOSFET<br>
 driver. Example:[https://www.amazon.com/High-Power-Trigger-Adjustment-Electronic-Brightness/dp/B0893MKNB2] to run a<br>
@@ -24,6 +35,7 @@ an ANET A8! The file name to write is <b>part</b> of the commamd. So I used "OCT
 "OCTO601 BLV.dat" at the end. So you could "OCTO600 PTime" at the start and then time each tool change using "OCTO600 TTime"<br>
 to "OCTO601 TTime" to figure straight tool changes to end up with two files, one for the full print time and the other of tool<br>
 change times... Or you could change the script to include the tool number and write it all to one file... hmmm.<br>
+
 ### The Workhorse Set ###
 So now we get to the workhorses of the GCode Macros and GCode System Commands "OCTO400/402".<br>
 The format of these data files are for the include statements in <b>jinja2</b> as used in the <b>GCode Macros</b>
@@ -43,7 +55,7 @@ The format of these data files are for the include statements in <b>jinja2</b> a
     This command tacks on more layer operations onto the end of the Layer.data file to expand the array.
   </li>
 </ul>
-All of these are inserted into my Gcode file from a post processor script of my <br><br>
+All of these are inserted into my Gcode file from a post processor script of my slicer.<br>
 
 > Note: <br>
 The file <b>OctoStatus.sh</b> is used with the <b>OctoPrint</b> config.yaml Events call back.
