@@ -150,6 +150,38 @@ OCTO400 File=WhyMe.data Name=mine.my_LayerFR Value=200
 [...]
 ;TYPE:Skirt
 ```
+<b>My Data File</b><br>
+<code>
+{%- set mine.my_Working = false -%}
+{%- set mine.my_State = false -%}
+{%- set mine.my_Pause = true -%}
+{%- set mine.my_BedTemp = 70 -%}
+{%- set mine.my_HeadType = 0 -%}
+{%- set mine.my_HotendTemp = 200 -%}
+{%- set mine.my_HotendMinTemp = 160 -%}
+{%- set mine.my_Feedrate = 100 -%}
+{%- set mine.my_Flowrate = 100 -%}
+{%- set mine.my_T0WT = [10,190] -%}
+{%- set mine.my_T1WT = [20,190] -%}
+{%- set mine.my_T2WT = [30,190] -%}
+{%- set mine.my_T3WT = [40,190] -%}
+{%- set mine.my_PreFeed = 570 -%}
+{%- set mine.my_MaxExt = 200 -%}
+{%- set mine.my_ABL = false -%}
+{%- set mine.my_TimeLapse = false -%}
+{%- set mine.my_Z_Lift = 3.5 -%}
+{%- set mine.my_Fix_Zon = 0.125 -%}
+{%- set mine.my_Fix_Zoff = 2.0 -%}
+{%- set mine.my_Retract = 5 -%}
+{%- set mine.my_TLPts = [5,215] -%}
+{%- set mine.my_Delay = 0 -%}
+{%- set mine.my_LayerCount = 42 -%}
+{%- set mine.my_Layer = 64 -%}
+{%- set mine.my_LayerMatch = 1 -%}
+{%- set mine.my_LayerFR = 7800 -%}
+{%- set mine.my_Levels = [] -%}
+{%- set mine.my_BedLevelCnt = 0 -%}
+</code>
 
 ## That was a little taste ##
 
