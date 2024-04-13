@@ -56,8 +56,9 @@ The directory is backed up and restored with OctoPrint Backup command! I even pu
 #!/bin/bash
 # this is to give OP something to call
 # full paths required
-# $OCTOPRINT_GCODESYSTEMCOMMAND_ARGS=
-# "File=WhyMe.data Name=my_flag Value=true"
+# $OCTOPRINT_GCODESYSTEMCOMMAND_ID="400"
+# $OCTOPRINT_GCODESYSTEMCOMMAND_ARGS="File=WhyMe.data Name=my_flag Value=true"
+# $OCTOPRINT_GCODESYSTEMCOMMAND_LINE="OCTO400 File=WhyMe.data Name=my_flag Value=true"
 
 # my_string="File=WhyMe.data Name=mine.my_State Value=false"
 my_string="$OCTOPRINT_GCODESYSTEMCOMMAND_ARGS"
