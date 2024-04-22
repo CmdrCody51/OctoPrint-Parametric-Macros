@@ -14,7 +14,8 @@ When the system call is made, the following items are included as environment va
 <tr><td>OCTOPRINT_GCODESYSTEMCOMMAND_LINE</td><td>The whole line</td></tr>
 </table>
 I could have used these many different ways. I could have used one script, say for Power as above, and keyed whether<br>
-On or Off by using the __ID number itself. That would save me space on the file system but would make it take longer to run.<br>
+On or Off by using the __ID number itself. That would save me space on the file system but might make it take longer to run<br>
+(though probably not by much).<br><br>
 If you run on Windows, I have no idea how fast the shell takes to load to process a script but it is important.<br><br>
 <b>We are going to blow by my tool change scripts because I think they are too specialized and in turmoil at this time.</b><br><br>
 So we are at 'OCTO190/191' that uses Raspberry Pi GPIO library to turn a pin off and on. This pin is connected to a MOSFET<br>
