@@ -31,7 +31,7 @@ With Custom Control Editor, you can call <b>any Gcode</b> that OctoPrint or your
 including <b>Gcode System Commands</b> and <b>Gcode Macros</b>.<br><br>
 
 > Note: <hbr>
-Another plugin you may find useful is <b>Marlin GCode Documentation</b> which ties into the Terminal Tab<br>
+Another plugin you may find useful is [<b>Marlin GCode Documentation</b>](https://plugins.octoprint.org/plugins/marlingcodedocumentation/) which ties into the Terminal Tab<br>
 and displays the structure and purpose of Gcodes you type on the Send line. It is a bit of a misnomer as<br>
 it will work for RepRap and Klipper as well!<br>
 
@@ -41,11 +41,3 @@ I use the events interface to prevent my semimonthly full backups of my entire S
 If I start a print, I make a file. If that file exists when running my backup script from crontab, I abort. EZPZ!<br>
 Any other event, I delete the file. I backup at 1:00 AM so I shouldn't be printing, unless I am printing a mug...<br>
 You only subscribe to the events you want, so I don't care about Pause and Resume.<br>
-
-# GCode Macros #
-
-Has its own directory gcode_macros.
-
-# GCode System Commands #
-
-Has its own directory LinuxScripts.
