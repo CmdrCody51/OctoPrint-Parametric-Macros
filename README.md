@@ -14,9 +14,9 @@ and get:<br>
 <li>
   GCode Systems Commands https://github.com/kantlivelong/OctoPrint-GCodeSystemCommands<br>
     This OctoPrint plugin adds the ability to define GCode commands that execute local system commands.<br><br>
-    </li><br>
+    </li>
 
-## You can also use this plugin(maybe) ##
+<b>You can also use this plugin(maybe)</b><br>
 <li>
   Custom Control Editor https://plugins.octoprint.org/plugins/customControl/<br>
     Makes custom controls editable via the settings dialog.<br>
