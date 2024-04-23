@@ -22,6 +22,7 @@ and get:<br>
     Makes custom controls editable via the settings dialog.<br>
     This plugin helps you create, edit and delete your custom controls. You can easily access all the options in the settings under “Custom Control Editor”.<br>
 </li><br>
+<b>Also extremely helpful</b><li>For Marlin firmware: https://marlinfw.org/meta/gcode/</li><li>For RepRap firmware and somewhat for Klipper: https://reprap.org/wiki/G-code</li>
 
 # The Magic #
 Ok, first, I walked away from using Microsoft products in 2004 or so and have never looked back (except to laugh!)<br>
