@@ -59,7 +59,7 @@ The 2D macro reverses the step.<br><br>
 A type 2 macro looks like the @Do_Check_Z.<br>
 <code>
 M18 S0 ; disable stepper timeout (never shutdown)
-{%- for try in range(3) %}
+{% for try in range(3) -%}
 M117 Check Z {{ loop.index }}/{{ loop.length }} ; display current loop (Check Z 1/3)
 G91 ; goto incremental
 G1 Z20 F1200 ; lift Z 30 mm
@@ -75,7 +75,7 @@ M84 X Y ; disable X and Y steppers (let's me manually move them while leaving Z 
 M1 ; in my OctoPrint I have unblocked the M1 as it lets me use the LCD button to continue
 : the printer will not return the 'ok' until I click the button up to the comm time out.
 ; this is mitigated by the temperature reports and busy protocol.
-{%- endfor %}
+{% endfor -%}
 M18 S30 ; restore stepper time out
 G91 ; goto incremental (don't really need but BSTS)
 G1 Z20 F1200 ; lift the Z
@@ -87,3 +87,15 @@ M117 Check Z Complete
 </code><br>
 Note: All those comments aren't really there
 # Tips & Tricks #
+The syntax {%- (or -%}) has a special meaning in this context related to whitespace control.
+Here are specific uses of {%- in Jinja2:
+<ul>
+<li>Start of a Block: Using {%- at the beginning of a block, like {%- if condition %}, tells Jinja2 to strip any leading spaces or newlines from the template output before processing this block.</li>
+<li>End of a Block: Similarly, using -%} at the end of a block, like {% endfor -%}, tells Jinja2 to strip any trailing spaces or newlines after processing this block.</li>
+<li>
+Both: Using {%- at the beginning of an include or set and a -%} at the end of an include or set will prevent any output from the statement.
+</li>
+</ul>
+If you get this wrong, you can fill your <b>octoprint.log</b> file with "octoprint.util.comm - INFO - Refusing to send an empty line to the printer" warnings! You can also 'skip' steps by 'stripping' newlines from the scripts. I suggest turning on serial logging and refering to the log files often when developing macros!<br>
+
+We now can take a look at a type 3 macro.<br>
