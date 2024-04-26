@@ -96,6 +96,69 @@ Here are specific uses of {%- in Jinja2:
 Both: Using {%- at the beginning of an include or set and a -%} at the end of an include or set will prevent any output from the statement.
 </li>
 </ul>
-If you get this wrong, you can fill your <b>octoprint.log</b> file with "octoprint.util.comm - INFO - Refusing to send an empty line to the printer" warnings! You can also 'skip' steps by 'stripping' newlines from the scripts. I suggest turning on serial logging and refering to the log files often when developing macros!<br>
-
-We now can take a look at a type 3 macro.<br>
+If you get this wrong, you can fill your <b>octoprint.log</b> file with "octoprint.util.comm - INFO - Refusing to send an empty line to the printer" warnings! You can also 'skip' steps by 'stripping' newlines from the scripts. I suggest turning on serial logging and refering to the log files often when developing macros!<br><br>
+We now can take a look at a type 3 macro like @First_Layer.gcode from "gcode_macro/macros".<br>
+This is entered from the Settings page for GCode Macros.<br>
+<code>
+{%- set mine = namespace(my_Working=false) -%}
+{%- set message = 'First Layer Check' -%}
+{%- include 'Do_Pause.macro' -%}
+</code><br>
+What makes this different, is the use of the <b>namespace</b> construct. In Jinja2, a namespace is a container for variables and other objects that can be passed to templates or within templates to isolate variables from other contexts.<br><br>
+The Do_Pause.macro file can be written with any text editor and is placed in the "gcode_macro" directory. All include files are placed into the "gcode_macro" directory. That keeps the macros being defined in the Settings page from trying to load the includes as macros.<br>
+<code>
+{%- include 'WhyMe.data' -%}
+    {%- set mine.my_Working = false -%}
+    {%- set mine.my_State = false -%}
+    {%- set mine.my_Pause = true -%}
+    {%- set mine.my_BedTemp = 70 -%}
+    {%- set mine.my_HeadType = 0 -%}
+    {%- set mine.my_HotendTemp = 200 -%}
+    {%- set mine.my_HotendMinTemp = 160 -%}
+    {%- set mine.my_Feedrate = 100 -%}
+    {%- set mine.my_Flowrate = 100 -%}
+    {%- set mine.my_T0WT = [10,190] -%}
+    {%- set mine.my_T1WT = [20,190] -%}
+    {%- set mine.my_T2WT = [30,190] -%}
+    {%- set mine.my_T3WT = [40,190] -%}
+    {%- set mine.my_PreFeed = 570 -%}
+    {%- set mine.my_MaxExt = 200 -%}
+    {%- set mine.my_ABL = false -%}
+    {%- set mine.my_TimeLapse = false -%}
+    {%- set mine.my_Z_Lift = 3.5 -%}
+    {%- set mine.my_Fix_Zon = 0.125 -%}
+    {%- set mine.my_Fix_Zoff = 2.0 -%}
+    {%- set mine.my_Retract = 5 -%}
+    {%- set mine.my_TLPts = [5,215] -%}
+    {%- set mine.my_Delay = 0 -%}
+    {%- set mine.my_LayerCount = 42 -%}
+    {%- set mine.my_Layer = 64 -%}
+    {%- set mine.my_LayerMatch = 1 -%}
+    {%- set mine.my_LayerFR = 7800 -%}
+    {%- set mine.my_Levels = [] -%}
+    {%- set mine.my_BedLevelCnt = 0 -%}
+{%- if mine.my_Pause -%}
+M400 ; complete all motion
+G60 ; store XYZ (fw) if G60/G61 is not enabled, recompile your firmware to use it SO handy
+G91 ; incremental
+G1 Z{{ mine.my_Z_Lift }} E-{{ mine.my_Retract }}; lift Z to clear part
+G90 ; back to absolute
+G0 X{{ mine.my_TLPts.0 }} Y{{ mine.my_TLPts.1 }} F10000 ; clear the build area
+M400 ; complete all motion
+M18 S0
+OCTO203 ; turn lights on
+{%- if message is defined -%}
+M117 {{ message }}
+{%- endif -%}
+M300 P1000 ; beep if you got em
+M1 ; pause using printers pause
+M18 S30
+G61 XY
+G91
+G1 Z-{{ mine.my_Z_Lift }} E{{ mine.my_Retract }}
+G90
+G61 F{{ mine.my_LayerFR }} ; return to saved position (fw)
+{%- endif -%}
+OCTO202 ; turn lights off
+</code><br>
+Now, I always check my first layer, but if I didn't want to, I could change <b>mine.my_Pause</b> to false and all this macro would do is turn off the lights. Likewise I can adjust the <b>mine.my_Z_Lift</b> and <b>mine.my_Retract</b> distances I use. The <b>mine.my_TLPts</b> is a two element array for positioning the hotend for timelapses and I just re-use that here. Notice <b>mine.my_LayerFR</b> is set from the GCode file during slicing using a post processor script to build the approptiate GCode System Command line.<br>
