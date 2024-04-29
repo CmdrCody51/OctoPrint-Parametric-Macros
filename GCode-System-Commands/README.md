@@ -37,6 +37,13 @@ an ANET A8! The file name to write is <b>part</b> of the commamd. So I used "OCT
 to "OCTO601 TTime" to figure straight tool changes to end up with two files, one for the full print time and the other of tool<br>
 change times... Or you could change the script to include the tool number and write it all to one file... hmmm.<br>
 
+### Important ###
+![](../images/RPiShellPermissons.png)<br>
+For your scripts to run on a Pi (or any other Linux based system, they have to be marked as 'executable'.
+Use 'chmod 755 file' to make the file executable.
+> Note: <br>
+This image is from one of my workstations that has my makerpi.local OctoPrint mounted via Samba/CIFS so I can play from one location.<br>
+That is why the owner and group are brett and not pi as it would be <b>on</b> the pi.<br>
 ### The Workhorse Set ###
 So now we get to the workhorses of the GCode Macros and GCode System Commands "OCTO400/402".<br>
 The format of these data files are for the include statements in <b>jinja2</b> as used in the <b>GCode Macros</b>
