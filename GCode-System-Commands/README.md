@@ -31,7 +31,7 @@ Example: "/home/pi/.octoprint/BLV.dat<br>
 Start: 1695989508
 Stop: 1695992889
 </code><br>
-This is called from my @Do_Bed macro and yes - it does take 56 minutes and 20 seconds to run a triple tap 10 by 10 mesh on<br>
+This is called from my @Do_Bed macro and yes - it does take 56 minutes and 21 seconds to run a triple tap 10 by 10 mesh on<br>
 an ANET A8! The file name to write is <b>part</b> of the commamd. So I used "OCTO600 BLV.dat" at the beginning and<br>
 "OCTO601 BLV.dat" at the end. So you could "OCTO600 PTime" at the start and then time each tool change using "OCTO600 TTime"<br>
 to "OCTO601 TTime" to figure straight tool changes to end up with two files, one for the full print time and the other of tool<br>
