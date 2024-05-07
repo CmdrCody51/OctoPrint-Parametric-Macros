@@ -27,9 +27,10 @@ They can accept parameters and can be called multiple times within the template.
 Overall, Jinja2 is a versatile and feature-rich templating engine that simplifies the process of generating dynamic<br>
 content in Python applications, particularly in web development.
 # Nitty Gritty #
-GCode Macros put its data files in "/home/pi/.octoprint/data/gcode_macro/macros/" and calls them [name].gcode.<br>
+GCode Macros puts its data files in "/home/pi/.octoprint/data/gcode_macro/macros/" and calls them [name].gcode.<br>
 You call them using @name. The major 'programming' consideration is that as a <b>template</b> language, Jinja2 outputs a block<br>
-of GCode "notum hoc tempore" or with data known at this time. The template is processed in one pass.<br><br>  
+of GCode "notum hoc tempore" or with data known at this time. The template is processed in one block and one pass.<br>
+You can not get "new" data within the macro.<br><br>  
 > Note <br>
 @ commands (also known as host commands elsewhere) are special commands you may include in GCODE files streamed through OctoPrint to your printer or send as part of GCODE scripts, through the Terminal Tab, the API or plugins. Contrary to other commands they will never be sent to the printer but instead trigger functions inside OctoPrint.<br>
 They are always of the form @[command], e.g. @pause or @custom_command<br><br>
@@ -62,7 +63,7 @@ M18 S0 ; disable stepper timeout (never shutdown)
 {% for try in range(3) -%}
 M117 Check Z {{ loop.index }}/{{ loop.length }} ; display current loop (Check Z 1/3)
 G91 ; goto incremental
-G1 Z20 F1200 ; lift Z 30 mm
+G1 Z20 F1200 ; lift Z 20 mm
 M400 ; make sure you get there
 G90 ; go back to absolute
 G28 X Y ; home X and Y
